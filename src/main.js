@@ -4,9 +4,12 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import element from 'element-ui'
+import MyHttpServer from '@/plugins/http.js'
 import 'element-ui/lib/theme-chalk/index.css'
+import '@/assets/css/reset.css'
 Vue.config.productionTip = false
 Vue.use(element)
+Vue.use(MyHttpServer)
     /* eslint-disable no-new */
 new Vue({
     el: '#app',
