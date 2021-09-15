@@ -20,14 +20,14 @@
     >
     <el-container>
       <el-aside class="aside" width="200px">
-        <el-menu default-active="2" class="el-menu-vertical-demo" unique-opened>
+        <el-menu default-active="2" class="el-menu-vertical-demo" unique-opened :router="true">
           <el-submenu index="1">
             <!-- <template slot="title">分组一</template> -->
             <template slot="title">
               <i class="el-icon-location"></i>
               <span>用户管理</span>
             </template>
-            <el-menu-item index="1-1">
+            <el-menu-item index="users">
               <i class="el-icon-table-lamp"></i>
               <span>用户列表</span>
             </el-menu-item>
@@ -90,7 +90,9 @@
           </el-submenu>
         </el-menu>
       </el-aside>
-      <el-main class="main">Main</el-main>
+      <el-main class="main">
+              <router-view/>
+      </el-main>
     </el-container>
   </el-container>
 </template>
