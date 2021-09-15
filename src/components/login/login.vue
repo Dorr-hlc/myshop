@@ -11,7 +11,11 @@
         <el-input v-model="formLabelAlign.username"></el-input>
       </el-form-item>
       <el-form-item label="密码">
+<<<<<<< HEAD
         <el-input v-model="formLabelAlign.password" type="password"></el-input>
+=======
+        <el-input v-model="formLabelAlign.password"></el-input>
+>>>>>>> 6993a5a734f6785555988e2d751ea5eaa4b106a2
       </el-form-item>
       <el-button class="login-btn" type="primary" @click="handleLogin"
         >登陆</el-button
@@ -32,24 +36,33 @@ export default {
   methods: {
     // 登陆请求
     async handleLogin() {
+<<<<<<< HEAD
       if(this.formLabelAlign.username !=""&&this.formLabelAlign.password !=""){
+=======
+>>>>>>> 6993a5a734f6785555988e2d751ea5eaa4b106a2
       const res = await this.$http.post("login", this.formLabelAlign);
       const {
         data,
         meta: { msg, status },
       } = res.data;
       if (status === 200) {
+<<<<<<< HEAD
         console.log(res);
         // 登录成功保存token到本地
         localStorage.setItem('token',data.token)
+=======
+>>>>>>> 6993a5a734f6785555988e2d751ea5eaa4b106a2
         this.$router.push({ name: "home" });
         this.$message.success(msg);
       } else {
         this.$message.warning(msg);
       }
+<<<<<<< HEAD
       }else{
         this.$message.warning('用户名或密码不能为空')
       }
+=======
+>>>>>>> 6993a5a734f6785555988e2d751ea5eaa4b106a2
     },
   },
 };

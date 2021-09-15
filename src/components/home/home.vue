@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <el-container class="container">
     <el-header class="header"
       ><el-row>
@@ -133,4 +134,15 @@ export default {
   line-height: 60px;
   text-decoration: none;
 }
+=======
+    <div>home</div>
+</template>
+<script>
+export default {
+    
+}
+</script>
+<style scoped>
+
+>>>>>>> 6993a5a734f6785555988e2d751ea5eaa4b106a2
 </style>
