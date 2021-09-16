@@ -63,28 +63,28 @@
       :total="total">
     </el-pagination>
     <!-- 添加用户 -->
-    <el-dialog title="添加用户" :visible.sync="dialogTableVisible">
+    <el-dialog title="添加用户" :visible.sync="dialogTableVisible" width="25%">
 <el-form :label-position="labelPosition" label-width="80px" :model="formLabelAlign">
   <el-form-item label="用户名">
-    <el-input v-model="formLabelAlign.username"></el-input>
+    <el-input v-model="formLabelAlign.username" size="mini"></el-input>
   </el-form-item>
   <el-form-item label="密码">
-    <el-input v-model="formLabelAlign.password"></el-input>
+    <el-input v-model="formLabelAlign.password" size="mini"></el-input>
   </el-form-item>
   <el-form-item label="邮箱">
-    <el-input v-model="formLabelAlign.email"></el-input>
+    <el-input v-model="formLabelAlign.email" size="mini"></el-input>
   </el-form-item>
     <el-form-item label="电话">
-    <el-input v-model="formLabelAlign.mobile"></el-input>
+    <el-input v-model="formLabelAlign.mobile" size="mini"></el-input>
   </el-form-item>
     <el-form-item>
-    <el-button type="primary" @click="submitForm">确认</el-button>
-    <el-button @click="closeForm">取消</el-button>
+    <el-button type="primary" @click="submitForm" size="mini">确认</el-button>
+    <el-button @click="closeForm" size="mini">取消</el-button>
   </el-form-item>
 </el-form>
 </el-dialog>
 <!-- 编辑用户信息 -->
-    <el-dialog title="编辑用户" :visible.sync="dialogTableVisibleEdit">
+    <el-dialog title="编辑用户" :visible.sync="dialogTableVisibleEdit" width="25%">
 <el-form :label-position="labelPosition" label-width="80px" :model="editForm">
   <el-form-item label="用户名">
     <el-input v-model="editForm.username" disabled></el-input>
@@ -102,7 +102,7 @@
 </el-form>
 </el-dialog>
 <!-- 分配角色弹窗 -->
-    <el-dialog title="分配角色" :visible.sync="dialogTableVisibleRole">
+    <el-dialog title="分配角色" :visible.sync="dialogTableVisibleRole" width="25%">
       <el-form :label-position="labelPosition" label-width="80px">
     <el-form-item label="用户名">
       {{currentUserName}}
@@ -117,7 +117,7 @@
     </el-option>
   </el-select>
   </el-form-item>
-      <el-form-item> 
+      <el-form-item class="roleBtn">  
       <el-button type="primary" @click="editRole">确认</el-button>
     <el-button @click="closeRole">取消</el-button>
   </el-form-item>
@@ -132,7 +132,7 @@ export default {
     return {
       query: "",
       pagenum: 1,
-      pagesize: 2,
+      pagesize: 4,
       // 用户数据
       userlist: [],
       total: -1,
@@ -318,6 +318,8 @@ async editStatus(userstatus,id){
 }
 .page{
  margin-top: 50px;
-
+}
+.roleBtn{
+margin: 20px 0px 0 200px;
 }
 </style>
