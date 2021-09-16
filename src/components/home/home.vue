@@ -2,10 +2,20 @@
   <el-container class="container">
     <el-header class="header"
       ><el-row>
-        <el-col :span="4"
+        <el-col :span="2"
           ><div class="grid-content bg-purple">
             <img src="@/assets/image/logo.jpeg" alt="logo" class="logo" /></div
         ></el-col>
+        <el-col :span="2">
+               <div class="asidebtn">
+        <i
+          class="el-icon-s-unfold"
+          @click="toggleCollapse"
+          v-if="isCollapse"
+        ></i>
+        <i class="el-icon-s-fold" @click="toggleCollapse" v-else></i>
+      </div>
+        </el-col>
         <el-col :span="18"
           ><div class="grid-content bg-purple-light">
             <h2 class="middle">后台管理系统</h2>
@@ -16,11 +26,20 @@
             <a href="#" class="loginout" @click.prevent="loginout">退出</a>
           </div></el-col
         >
-      </el-row></el-header
-    >
+      </el-row>
+    </el-header>
     <el-container>
-      <el-aside class="aside" width="200px">
-        <el-menu default-active="2" class="el-menu-vertical-demo" unique-opened :router="true">
+      <el-aside class="aside" width="auto">
+        <el-menu
+          default-active="2"
+          class="el-menu-vertical-demo"
+          unique-opened
+          :router="true"
+          :collapse-transition="true"
+          @open="handleOpen"
+          @close="handleClose"
+          :collapse="isCollapse"
+        >
           <el-submenu index="1">
             <!-- <template slot="title">分组一</template> -->
             <template slot="title">
@@ -91,7 +110,7 @@
         </el-menu>
       </el-aside>
       <el-main class="main">
-              <router-view/>
+        <router-view />
       </el-main>
     </el-container>
   </el-container>
@@ -99,7 +118,9 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      isCollapse: true,
+    };
   },
   beforeCreate() {
     const token = localStorage.getItem("token");
@@ -108,8 +129,17 @@ export default {
     }
   },
   methods: {
+    handleOpen(key, keyPath) {
+      console.log(key, keyPath);
+    },
+    handleClose(key, keyPath) {
+      console.log(key, keyPath);
+    },
+    toggleCollapse() {
+      this.isCollapse = !this.isCollapse;
+    },
     loginout() {
-      localStorage.setItem('token','')
+      localStorage.setItem("token", "");
       this.$message.success("退出成功");
       this.$router.push("/login");
     },
@@ -125,6 +155,7 @@ export default {
 }
 .aside {
   background-color: #d3dce6;
+  height: 100%;
 }
 .main {
   background-color: #e9eef3;
@@ -141,6 +172,16 @@ export default {
 .loginout {
   line-height: 60px;
   text-decoration: none;
+}
+.el-menu-vertical-demo {
+  height: 100%;
+}
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  height: 100%;
+}
+.asidebtn{
+  margin-left: 100px;
 }
 </style>
 
