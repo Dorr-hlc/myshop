@@ -4,7 +4,7 @@
       ><el-row>
         <el-col :span="2"
           ><div class="grid-content bg-purple">
-            <img src="@/assets/image/logo.jpeg" alt="logo" class="logo" /></div
+      </div
         ></el-col>
         <el-col :span="2">
                <div class="asidebtn">
@@ -154,11 +154,14 @@ export default {
   height: 100%;
 }
 .header {
-  background-color: #b3c0d1;
+/* background-color: #b3c0d1; */
+background:linear-gradient(to right, #bb313e25, #bb313e25, #d7222925, #dd4a1625, 
+#e4761525, #f5c50025, #f0e92725, #b1ce2425, #48a93525, #03944525, #157c4f25,
+ #176a5825, #1b556325, #1d386f25, #1d386f25, #20277825, #52266325, #8a244b25);
 }
 .aside {
-  background-color: #d3dce6;
-  height: 100%;
+background-image: linear-gradient(to right, #eea2a2 0%, #bbc1bf 19%, #57c6e1 42%, #b49fda 79%, #7ac5d8 100%);
+height: 100%; 
 }
 .main {
   /* background-color: #e9eef3; */
