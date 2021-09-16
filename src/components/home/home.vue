@@ -8,7 +8,7 @@
         ></el-col>
         <el-col :span="18"
           ><div class="grid-content bg-purple-light">
-            <h2 class="middle">地狱后台管理系统</h2>
+            <h2 class="middle">后台管理系统</h2>
           </div></el-col
         >
         <el-col :span="2"
