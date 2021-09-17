@@ -61,7 +61,7 @@
               <i class="el-icon-user"></i>
               <span>角色列表</span>
             </el-menu-item>
-            <el-menu-item index="2-2">
+            <el-menu-item index="right">
               <i class="el-icon-coordinate"></i>
               <span>权限列表</span>
             </el-menu-item>
@@ -113,7 +113,6 @@
       <transition name="fade" mode="out-in">
     <router-view />
 </transition>
-       
       </el-main>
     </el-container>
   </el-container>
@@ -166,7 +165,7 @@ height: 100%;
 .main {
   /* background-color: #e9eef3; */
   background: url('~@/assets/image/bg.jpg') no-repeat;
-  background-size: 100% 100%;;
+  background-size: 100% 100%;
 }
 /* 头部样式 */
 .logo {
