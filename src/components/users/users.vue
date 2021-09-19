@@ -276,9 +276,7 @@ async editStatus(userstatus,id){
       },
 
     async getUserinfo() {
-      const AUTH_TOKEN = localStorage.getItem("token");
-      console.log(AUTH_TOKEN);
-      this.$http.defaults.headers.common["Authorization"] = AUTH_TOKEN;
+      console.log('发起请求');
       const res = await this.$http.get(
         `users?query=${this.query}&pagenum=${this.pagenum}&pagesize=${this.pagesize}`
       );
