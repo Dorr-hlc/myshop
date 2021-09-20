@@ -1,11 +1,7 @@
 <template>
   <el-card class="box-card">
     <!-- 面包屑 -->
-    <el-breadcrumb separator="/">
-      <el-breadcrumb-item>首页</el-breadcrumb-item>
-      <el-breadcrumb-item>用户管理</el-breadcrumb-item>
-      <el-breadcrumb-item>用户列表</el-breadcrumb-item>
-    </el-breadcrumb>
+     <myBread leavel1="用户管理" leavel2="用户列表"></myBread> 
     <!-- 搜索 -->
     <el-row class="searchRow">
       <el-col>
@@ -14,8 +10,6 @@
         </el-input>
         <el-button type="success" @click="showDialog">添加用户</el-button>
       </el-col>
-      <el-col></el-col>
-      <el-col></el-col>
     </el-row>
     <!-- 表格 -->
     <el-table :data="userlist" style="width: 100%">
@@ -276,7 +270,6 @@ async editStatus(userstatus,id){
       },
 
     async getUserinfo() {
-      console.log('发起请求');
       const res = await this.$http.get(
         `users?query=${this.query}&pagenum=${this.pagenum}&pagesize=${this.pagesize}`
       );

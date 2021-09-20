@@ -66,7 +66,7 @@
 export default {
   data() {
     return {
-      isCollapse: true,
+      isCollapse: false,
       menus:[]
     };
   },
@@ -87,10 +87,10 @@ export default {
       this.menus=res.data.data;
     },
     handleOpen(key, keyPath) {
-      console.log(key, keyPath);
+      // console.log(key, keyPath);
     },
     handleClose(key, keyPath) {
-      console.log(key, keyPath);
+      // console.log(key, keyPath);
     },
     toggleCollapse() {
       this.isCollapse = !this.isCollapse;
