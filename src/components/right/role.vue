@@ -50,6 +50,7 @@
               </el-row>
             </el-col>
           </el-row>
+          <span>未分配权限</span>
         </template>
       </el-table-column>
       <el-table-column label="#" width="180" type="index"> </el-table-column>

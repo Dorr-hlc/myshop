@@ -40,73 +40,18 @@
           @close="handleClose"
           :collapse="isCollapse"
         >
-          <el-submenu index="1">
+          <el-submenu :index="item.order+''" v-for="(item,index) in menus" :key="index">
             <!-- <template slot="title">分组一</template> -->
             <template slot="title">
               <i class="el-icon-location"></i>
-              <span>用户管理</span>
+              <span>{{item.authName}}</span>
             </template>
-            <el-menu-item index="users">
+            <el-menu-item :index="item1.path+''" v-for="(item1,index1) in item.children" :key="index1">
               <i class="el-icon-table-lamp"></i>
-              <span>用户列表</span>
+              <span>{{item1.authName}}</span>
             </el-menu-item>
           </el-submenu>
-          <el-submenu index="2">
-            <!-- <template slot="title">分组一</template> -->
-            <template slot="title">
-              <i class="el-icon-c-scale-to-original"></i>
-              <span>权限管理</span>
-            </template>
-            <el-menu-item index="role">
-              <i class="el-icon-user"></i>
-              <span>角色列表</span>
-            </el-menu-item>
-            <el-menu-item index="right">
-              <i class="el-icon-coordinate"></i>
-              <span>权限列表</span>
-            </el-menu-item>
-          </el-submenu>
-          <el-submenu index="3">
-            <!-- <template slot="title">分组一</template> -->
-            <template slot="title">
-              <i class="el-icon-shopping-bag-1"></i>
-              <span>商品管理</span>
-            </template>
-            <el-menu-item index="3-1">
-              <i class="el-icon-attract"></i>
-              <span>商品列表</span>
-            </el-menu-item>
-            <el-menu-item index="3-2">
-              <i class="el-icon-user"></i>
-              <span>分类参数</span>
-            </el-menu-item>
-            <el-menu-item index="3-3">
-              <i class="el-icon-umbrella"></i>
-              <span>商品分类</span>
-            </el-menu-item>
-          </el-submenu>
-          <el-submenu index="4">
-            <!-- <template slot="title">分组一</template> -->
-            <template slot="title">
-              <i class="el-icon-notebook-1"></i>
-              <span>订单管理</span>
-            </template>
-            <el-menu-item index="4-1">
-              <i class="el-icon-s-fold"></i>
-              <span>订单列表</span>
-            </el-menu-item>
-          </el-submenu>
-          <el-submenu index="5">
-            <!-- <template slot="title">分组一</template> -->
-            <template slot="title">
-              <i class="el-icon-pie-chart"></i>
-              <span>数据统计</span>
-            </template>
-            <el-menu-item index="5-1">
-              <i class="el-icon-ship"></i>
-              <span>数据报表</span>
-            </el-menu-item>
-          </el-submenu>
+ 
         </el-menu>
       </el-aside>
       <el-main class="main">
@@ -122,15 +67,25 @@ export default {
   data() {
     return {
       isCollapse: true,
+      menus:[]
     };
   },
-  beforeCreate() {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      this.$router.push("/login");
-    }
+  // beforeCreate() {
+  //   const token = localStorage.getItem("token");
+  //   if (!token) {
+  //     this.$router.push("/login");
+  //   }
+  // },
+  created(){
+    this.getMenu()
   },
   methods: {
+    // 获取导航数据
+    async getMenu(){
+      const res= await this.$http.get(`menus`)
+      console.log(res);
+      this.menus=res.data.data;
+    },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
     },
