@@ -8,7 +8,7 @@
        <el-table
     :data="rightsData"
     border
- height="700px"
+    height="700px"
     class="mytable"
     style="width: 100%">
     <el-table-column

@@ -4,7 +4,7 @@
     <myBread leavel1="权限管理" leavel2="角色列表"></myBread>
     <el-row class="addBtn">
       <el-col>
-        <el-button type="info">添加角色</el-button>
+        <el-button type="info" @click="addRole">添加角色</el-button>
       </el-col>
     </el-row>
     <!-- 表格 -->
@@ -50,6 +50,9 @@
               </el-row>
             </el-col>
           </el-row>
+          <span v-if="scope.row.children.length === 0" class="noRole"
+            >未分配权限</span
+          >
         </template>
       </el-table-column>
       <el-table-column label="#" width="180" type="index"> </el-table-column>
@@ -90,9 +93,9 @@
     <el-dialog title="修改权限" :visible.sync="dialogVisibleRole" width="30%">
       <!-- 树形结构 -->
       <el-tree
-         ref="tree"
+        ref="tree"
         :data="treeData"
-        show-checkbox 
+        show-checkbox
         node-key="id"
         :props="defaultProps"
         :default-checked-keys="checkedData"
@@ -102,9 +105,45 @@
 
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisibleRole = false">取 消</el-button>
-        <el-button type="primary" @click="setRole()"
-          >确 定</el-button
-        >
+        <el-button type="primary" @click="setRole()">确 定</el-button>
+      </span>
+    </el-dialog>
+    <!-- 添加角色的对话框 -->
+    <el-dialog title="添加角色" :visible.sync="dialogVisibleAdd" width="30%">
+      <el-form
+        :label-position="labelPosition"
+        label-width="80px"
+        :model="formLabelAlign"
+      >
+        <el-form-item label="角色名称">
+          <el-input v-model="formLabelAlign.roleName"></el-input>
+        </el-form-item>
+        <el-form-item label="角色描述">
+          <el-input v-model="formLabelAlign.roleDesc"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisibleAdd = false">取 消</el-button>
+        <el-button type="primary" @click="sureAdd">确 定</el-button>
+      </span>
+    </el-dialog>
+    <!-- 修改角色的对话框 -->
+    <el-dialog title="添加角色" :visible.sync="dialogVisibleEdit" width="30%">
+      <el-form
+        :label-position="labelPosition"
+        label-width="80px"
+        :model="EditRole"
+      >
+        <el-form-item label="角色名称">
+          <el-input v-model="EditRole.roleName"></el-input>
+        </el-form-item>
+        <el-form-item label="角色描述">
+          <el-input v-model="EditRole.roleDesc"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisibleEdit = false">取 消</el-button>
+        <el-button type="primary" @click="sureEdit">确 定</el-button>
       </span>
     </el-dialog>
   </el-card>
@@ -115,6 +154,8 @@ export default {
     return {
       roleData: [],
       dialogVisibleRole: false,
+      dialogVisibleAdd: false,
+      dialogVisibleEdit: false,
       treeData: [],
       //   指定树形结构的数据名
       defaultProps: {
@@ -123,32 +164,74 @@ export default {
       },
       arrexpand: [],
       checkedData: [],
-      currentId:0
+      currentId: 0,
+      labelPosition: "right",
+      //   确认添加角色
+      formLabelAlign: {
+        roleName: "",
+        roleDesc: "",
+      },
+      EditRole: {
+        roleName: "",
+        roleDesc: "",
+      },
+      roleID: 0,
     };
   },
   created() {
     this.getRightlist();
   },
   methods: {
-    //   修改权限
-  async setRole(){
-    //   获取全选的数组
-    let arry1 =  this.$refs.tree.getCheckedKeys()
-    // 获取半选的数组
-    let arry2 =  this.$refs.tree.getHalfCheckedKeys()
-    // 展开对象符
-    let arr=[...arry1,...arry2]
-    console.log(arr);
-    const res=await this.$http.post(`roles/${this.currentId}/rights`,{
-        rids:arr.join(',')
-    })
-    this.dialogVisibleRole=false
+    //   编辑角色
+    editRole(info) {
+      this.EditRole = info;
+      this.dialogVisibleEdit = true;
+      this.roleID = info.id;
+    },
+    //    编辑确认
+    async sureEdit() {
+      const res = await this.$http.put(`roles/${this.roleID}`, this.EditRole);
+      this.$message.success('更新角色成功')
+      this.dialogVisibleEdit = false;
+      this.getRightlist();
+    },
+    // 删除角色
+    async deleteRole(id){
+    const res= await this.$http.delete(`roles/${id}`)
+    this.$message.success('删除成功')
     this.getRightlist()
-    this.$message.success('更新成功')
+    },
+    //   弹出添加角色的对话框
+    addRole() {
+      this.dialogVisibleAdd = true;
+    },
+    // 确认添加角色
+    async sureAdd() {
+      const res = await this.$http.post("roles", this.formLabelAlign);
+       this.$message.success('添加角色成功')
+      this.dialogVisibleAdd = false;
+      this.getRightlist();
+      console.log(res);
+    },
+    //   修改权限
+    async setRole() {
+      //   获取全选的数组
+      let arry1 = this.$refs.tree.getCheckedKeys();
+      // 获取半选的数组
+      let arry2 = this.$refs.tree.getHalfCheckedKeys();
+      // 展开对象符
+      let arr = [...arry1, ...arry2];
+      console.log(arr);
+      const res = await this.$http.post(`roles/${this.currentId}/rights`, {
+        rids: arr.join(","),
+      });
+      this.dialogVisibleRole = false;
+      this.getRightlist();
+      this.$message.success("更新成功");
     },
     giveRole(user) {
       //   弹出对话框
-      this.currentId=user.id
+      this.currentId = user.id;
       this.dialogVisibleRole = true;
       this.getRightTree(user);
       console.log(user);
@@ -171,16 +254,16 @@ export default {
       this.treeData = res.data.data;
       //   获取当前已经勾选的节点
       let arrtemp = [];
-      role.children.forEach(item1 => {
+      role.children.forEach((item1) => {
         arrtemp.push(item1.id);
-        item1.children.forEach(item2 => {
+        item1.children.forEach((item2) => {
           arrtemp.push(item2.id);
-          item2.children.forEach(item3 => {
+          item2.children.forEach((item3) => {
             arrtemp.push(item3.id);
           });
         });
       });
-    //   赋值给已选择的权限
+      //   赋值给已选择的权限
       this.checkedData = arrtemp;
     },
   },
@@ -195,5 +278,10 @@ export default {
 }
 .thrid {
   margin: 10px 10px;
+}
+.noRole {
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 200px;
 }
 </style>
