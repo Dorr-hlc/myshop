@@ -234,8 +234,6 @@ async editStatus(userstatus,id){
     },
     // 封装提交用户信息的请求
  async addUserinfo(){
-    const AUTH_TOKEN = localStorage.getItem("token");
-    this.$http.defaults.headers.common["Authorization"] = AUTH_TOKEN;
    const res=  await this.$http.post('users',this.formLabelAlign)    
   const {meta:{status,msg},data}=res.data
   if(status===201){
