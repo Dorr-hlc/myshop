@@ -3,7 +3,7 @@
     <!-- 面包屑 -->
     <myBread leavel1="数据统计" leavel2="数据报表"></myBread>
     <!-- echarts容器 -->
-    <div id="main" style="width:100%; height:800px"></div>
+    <div id="main" style="width:700px; height:200px"></div>
   </el-card>
 </template>
 <script>
@@ -39,8 +39,8 @@ export default {
           },
         },
         grid: {
-          left: "3%",
-          right: "4%",
+          left: "1%",
+          right: "1%",
           bottom: "3%",
           containLabel: true,
         },

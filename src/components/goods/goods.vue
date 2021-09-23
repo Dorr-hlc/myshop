@@ -18,7 +18,7 @@
             @click="searchGoods"
           ></el-button>
         </el-input>
-        <el-button type="success" @click="showDialog">添加商品</el-button>
+        <el-button type="success" @click="$router.push({name:'goodsadd'})">添加商品</el-button>
       </el-col>
     </el-row>
     <!-- 表格 -->

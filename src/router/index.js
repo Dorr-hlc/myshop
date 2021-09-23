@@ -7,6 +7,7 @@ import Right from '@/components/right/right'
 import Role from '@/components/right/role'
 import Goods from '@/components/goods/goods'
 import Report from '@/components/reports/reports'
+import goodsadd from '@/components/goods/goodsadd'
 import { Message } from 'element-ui';
 Vue.use(Router)
 const router = new Router({
@@ -44,6 +45,11 @@ const router = new Router({
                         path: '/reports',
                         name: 'reports',
                         component: Report
+                    },
+                    {
+                        path: '/goodsadd',
+                        name: 'goodsadd',
+                        component: goodsadd
                     },
                 ]
             },
