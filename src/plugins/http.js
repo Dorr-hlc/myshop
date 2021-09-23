@@ -4,7 +4,7 @@ import axios from 'axios'
 MyHttpServer.install = (Vue) => {
     // 除了登录之外的所有的请求都需要请求头部
     // 4. 添加实例方法
-    axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
+    axios.defaults.baseURL = process.env.API_ROOT
     Vue.prototype.$http = axios
 
     // 在请求发起之前会先来到下面的回调函数
